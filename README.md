@@ -1029,3 +1029,84 @@ Understanding the Big O of algorithms will
 - help you for interviews. You will be able to talk about efficiency of algorithms that you whiteboard. Ex: "What I just coded out is O(n^2)."
 
 ## Let's dive into 0(1)
+
+To say an algorithm takes constant (or O(1)) time means: no matter how big the input(s) are, the computer will do basically same amount of work to perform the algorithm on them.
+
+```js
+function getMiddleOfArray(array) {
+  return array[Math.floor(array.length / 2)];
+}
+```
+
+## Let's dive into 0(n)
+
+To say an algorithm is linear or O(n) means the resources required grow proportionally to the size of the input.
+
+Algorithms that process each input at least once will take at least O(n) time. Loops are a common example.
+
+```js
+function find(needle, haystack) {
+  for (var i = 0; i < haystack.length; i++) {
+    if (haystack[i] === needle) return true;
+  }
+}
+
+function crossAdd(input) {
+  var answer = [];
+  for (var i = 0; i < input.length; i++) {
+    var goingUp = input[i];
+    var goingDown = input[input.length - 1 - i];
+    answer.push(goingUp + goingDown);
+  }
+  return answer;
+}
+```
+
+## Lets Dive into O(n²)
+
+```js
+function allCombos(list) {
+  var results = [];
+  for (var i = 0; i < results.length; i++) {
+    for (var j = 0; j < results.length; j++) {
+      results.push([i, j]);
+    }
+  }
+}
+```
+
+This would be O(n²). For every input, we have to go through a full loop inside of another full loop, meaning we're doing a lot of work! This is the trick: look for loops. A loop inside of a loop inside of a loop would likewise be O(n³).
+
+For some people, it's helpful to use a graph to visualize what we're talking about here
+
+![visual representation](https://btholt.github.io/complete-intro-to-computer-science/static/e331672c4244a2ae881a5123175c2c59/5a190/graph.png)
+
+Here we see a graph that represents the more items we put in a array, how long does it take for the function to complete. The red graph represents O(1) like our getMiddleOfArary function. You can throw an array of 1,000,000 at it and it still takes the same amount of time as if the array was 10 big.
+
+The blue line represents a function that takes longer based on how many items are in the array similar to crossAdd or find and it grows a steady rate. If it takes 10ms to run a function with a 100 items in it, we could reasonably expect it would take 10 times longer-ish (remember, these are broad strokes, not precise figures) if we had 10 times the amount of things in the array.
+
+The green line is where we get start getting scary. For every item we add to the array, it takes exponentially more time to complete the operation. Adding 10x the items could cause a function to takes 100x longer since it's O(n²). It gets even scarier at O(n³) as it would take 1000x longer.
+
+## Spatial Complexity
+
+Let's talk about spatial complexity or how much space (e.g. how much RAM or disk space) an algorithm needs to complete.
+
+**_Linear_**
+
+Let's say we have an algorithm that for every item in the array, it needs to create another array in the process of sorting it. So for an array of length 10, our algorithm will create 10 arrays. For an array of 100, it'd create 100 extra arrays (or something close, remember these are broad strokes, not exact.) This would be O(n) in terms of its spatial complexity.
+
+**_Logrithmic_**
+
+What about another for every item in the array, it needed to create a diminishing amount of extra arrays. For example: for an array of length 10, it'd create 7 arrays. For an array of 100, it'd create 12 arrays. For an array of 1000, it'd created 20 arrays. This would be O(log n).
+
+**_Constant_**
+
+What if we didn't create any extra arrays when we did our algorithm? We just used the same space we were given when we first started. Or if we created just 10 arrays, no matter how long the array is? This would be O(1) since it's constant no matter what. Its spatial need don't increase with longer arrays.
+
+**_Quadratic_**
+
+Lastly, what if we had an app that calculates the distances between zip / postal codes?
+
+A zip code in the United States is a five digit number that represents a fairly small area of land. 98109 is in the middle of Seattle, Washington while 10001 is in the middle of New York City, NY.
+
+If a user asks what's the distance between 98109 and 10001, we'd spit out something like 2,800 miles or 4,500 km. Now, let's say for every zip code we add to our system, we calculate the distance between every other zip code in our system and store it. If there were only 10 zip codes, sure, that'd be easy, but there are nearly 42,000 zip codes in the United States with more being added. The spatial complexity on this would be O(n²) because for every new zip code we add, we'd have to add 42,000 new items as well.
