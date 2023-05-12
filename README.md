@@ -11,6 +11,12 @@ Anybody who wants to land a job at a tech company but is new to technical interv
 
 ![Coding at the whiteboard - from HBO's Silicon Valley](https://d3j2pkmjtin6ou.cloudfront.net/coding-at-the-whiteboard-silicon-valley.png)
 
+- [Tech interview basics](#tech-interview-basics)
+- [Data Structures](#what-are-data-structures)
+- Big O notation
+- Algorithms
+- Resources
+
 # Tech Interview Basics
 
 So, what happens in a technical interview? Every company is different, but let’s take a look at the average situations you might face.
@@ -260,7 +266,7 @@ class ListNode {
 
 The code below shows the implementation of a linked list class with a constructor. Notice that if the head node is not passed, the head is initialised to null.
 
-```
+```json
 class LinkedList {
     constructor(head = null) {
         this.head = head
@@ -303,7 +309,7 @@ Next up, we will implement four helper methods for the linked list. They are:
 
 This method returns the number of nodes present in the linked list.
 
-```
+```json
 size() {
     let count = 0;
     let node = this.head;
@@ -319,7 +325,7 @@ size() {
 
 This method empties out the list.
 
-```
+```json
 clear() {
     this.head = null;
 }
@@ -329,7 +335,7 @@ clear() {
 
 This method returns the last node of the linked list.
 
-```
+```js
 getLast() {
     let lastNode = this.head;
     if (lastNode) {
@@ -345,7 +351,7 @@ getLast() {
 
 This method returns the first node of the linked list.
 
-```
+```js
 getFirst() {
     return this.head;
 }
@@ -387,22 +393,20 @@ Nah, to understand how a stack works under the hood, we use the base Object form
 
 We need a constructor to establish the storage mechanism and properties upon its invocation.
 
-```
+```js
 // Stack class
 class Stack {
+  // Array is used to implement stack
+  constructor() {
+    this.items = [];
+  }
 
-    // Array is used to implement stack
-    constructor()
-    {
-        this.items = [];
-    }
-
-    // Functions to be implemented
-    // push(item)
-    // pop()
-    // peek()
-    // isEmpty()
-    // printStack()
+  // Functions to be implemented
+  // push(item)
+  // pop()
+  // peek()
+  // isEmpty()
+  // printStack()
 }
 ```
 
@@ -410,12 +414,12 @@ As you can see the above definition we have created a skeleton of a stack class 
 
 - PUSH: Adds an element to the stack and
 
-```
+```js
 // push function
-push(element)
+push(element);
 {
-    // push element into the items
-    this.items.push(element);
+  // push element into the items
+  this.items.push(element);
 }
 ```
 
@@ -423,16 +427,15 @@ This method adds an element at the top of the stack.
 
 - POP: Removes an element from the stack
 
-```
+```js
 // pop function
-pop()
+pop();
 {
-    // return top most element in the stack
-    // and removes it from the stack
-    // Underflow if stack is empty
-    if (this.items.length == 0)
-        return "Underflow";
-    return this.items.pop();
+  // return top most element in the stack
+  // and removes it from the stack
+  // Underflow if stack is empty
+  if (this.items.length == 0) return "Underflow";
+  return this.items.pop();
 }
 ```
 
@@ -440,15 +443,576 @@ This method returns the topmost element of stack and removes it.
 
 - PEEK: returns the top most elements in the stack, but doesn’t delete it.
 
-```
+```js
 // peek function
-peek()
+peek();
 {
-    // return the top most element from the stack
-    // but does'nt delete it.
-    return this.items[this.items.length - 1];
+  // return the top most element from the stack
+  // but does'nt delete it.
+  return this.items[this.items.length - 1];
 }
 ```
+
+## Queue
+
+![the queue](https://www.javascripttutorial.net/wp-content/uploads/2019/12/queue-at-a-bank.png)
+
+Queues are an array-like data structure whose elements follow the **FIFO** rule: **F**irst **I**n, **F**irst **O**ut.
+
+A queue is often compared to a group of people standing in line to purchase items at a store: the first person to get in line is the first one to purchase items and get out of the queue
+
+The main reason is queues process data fairly and preserve the order of the collection. This also happens when we iterate over items with a for or while loop, forEach(), or map() method. Each item in the array gets processed in the order it was inserted, from index 0 to index.length — 1.
+
+**In Queues, items are processed in the order they are inserted.**
+
+When an item is inserted into a queue, it’s called **enqueued**. When an item is removed, it is **dequeued**. Other methods include peek, contains, until, and count.
+
+The following are queue's standard operations and their corresponding time
+complexities:
+
+- Enqueuing an element into he queue: O(1)
+- Dequeuing an element out of the queue: O(1)
+- Peeking at the element at the front of the queue: O(1)
+- Searching for an element in the queue: O(n)
+
+A queue is typically implemented with a **doubly linked list**
+
+The following picture illustrates a queue
+
+![queue picture](https://www.javascripttutorial.net/wp-content/uploads/2016/08/JavaScript-Queue-Illustration.png)
+
+## Implementation
+
+```js
+class Queue {
+  constructor() {
+    this.elements = {};
+    this.head = 0;
+    this.tail = 0;
+  }
+  enqueue(element) {
+    this.elements[this.tail] = element;
+    this.tail++;
+  }
+  dequeue() {
+    const item = this.elements[this.head];
+    delete this.elements[this.head];
+    this.head++;
+    return item;
+  }
+  peek() {
+    return this.elements[this.head];
+  }
+  get length() {
+    return this.tail - this.head;
+  }
+  get isEmpty() {
+    return this.length === 0;
+  }
+}
+```
+
+## How it works
+
+First, initialize the object that stores the elements of the queue (elements) and two variables for tracking the head and tail in the constructor:
+
+```js
+class Queue {
+  constructor() {
+    this.elements = {};
+    this.head = 0;
+    this.tail = 0;
+  }
+  //...
+}
+```
+
+Second, enqueue an element by adding it to the elements object to the end of the queue
+
+```js
+class Queue {
+  //...
+  enqueue(element) {
+    this.elements[this.tail] = element;
+    this.tail++;
+  }
+
+  //...
+}
+```
+
+Third, remove an element from the front of the queue
+
+```js
+class Queue {
+  // ...
+  dequeue() {
+    const item = this.elements[this.head];
+    delete this.elements[this.head];
+    this.head++;
+    return item;
+  }
+
+  //...
+}
+```
+
+Fourth, define the peek() method that accesses the element at the front of the queue
+
+```js
+class Queue {
+  //...
+  peek() {
+    return this.elements[this.head];
+  }
+  //...
+}
+```
+
+Fifth, get the length of the queue
+
+```js
+class Queue {
+  //...
+  get length() {
+    return this.tail - this.head;
+  }
+  //...
+}
+```
+
+The queue is empty when the length is zero.
+
+Finally, define the isEmpty() method that returns true if the queue is empty:
+
+```js
+class Queue {
+  // ...
+  get isEmpty() {
+    return this.tail - this.head;
+  }
+  // ...
+}
+```
+
+## Create a new queue
+
+To create a new queue from the Queue() constructor function, you use the new keyword as follows
+
+```
+let q = new Queue();
+```
+
+To enqueue numbers from 1 to 7, you use the following code.
+
+```js
+for (let i = 1; i <= 7; i++) {
+  q.enqueue(i);
+}
+```
+
+To get the number at the front of the queue, you use the peek() method.
+
+```
+console.log(q.peek()); // 1
+```
+
+To remove the element at the front of the queue, you use the dequeue() method as follows:
+
+```js
+// dequeue all elements
+while (!q.isEmpty()) {
+  console.log(q.dequeue());
+}
+```
+
+put it all together
+
+```js
+class Queue {
+  constructor() {
+    this.elements = {};
+    this.head = 0;
+    this.tail = 0;
+  }
+  enqueue(element) {
+    this.elements[this.tail] = element;
+    this.tail++;
+  }
+  dequeue() {
+    const item = this.elements[this.head];
+    delete this.elements[this.head];
+    this.head++;
+    return item;
+  }
+  peek() {
+    return this.elements[this.head];
+  }
+  get length() {
+    return this.tail - this.head;
+  }
+  get isEmpty() {
+    return this.length === 0;
+  }
+}
+
+let q = new Queue();
+for (let i = 1; i <= 7; i++) {
+  q.enqueue(i);
+}
+// get the current item at the front of the queue
+console.log(q.peek()); // 1
+
+// get the current length of queue
+console.log(q.length); // 7
+
+// dequeue all elements
+while (!q.isEmpty) {
+  console.log(q.dequeue());
+}
+```
+
+## Graphs
+
+![graphs](https://cdn-media-1.freecodecamp.org/images/1*EBtSVCSmRvw40Bmu9vP69A.png)
+
+Graphs are used in diverse industries and fields:
+
+- **GPS systems** and Google Maps use graphs to find the shortest path from one destination to another.
+- **Social Networks** use graphs to represent connections between users.
+- **The Google Search** algorithm uses graphs to determine the relevance of search results.
+- **Operations Research** is a field that uses graphs to find the optimal path to reduce the cost of transportation and delivery of goods and services.
+- **Even Chemistry** uses graphs to represent molecules!!! ❤️
+
+Graphs are used to represent, find, analyze, and optimize connections between elements (houses, airports, locations, users, articles, etc.).
+
+Here is what a graph looks like
+
+![graph image](https://cdn-media-1.freecodecamp.org/images/vQ77VuGVlTR95GgMxzyKqydIqoRJcPcWrigy)
+
+Circles represent Nodes and the lines represent Edges
+
+![detailed graph](https://cdn-media-1.freecodecamp.org/images/9KFiyFYi9bMktsJkMKLKaeJl31heUN9A-xrr)
+
+- **Nodes** they are the elements that create the network. They could represent houses, locations, airports, ports, bus stops, buildings, users, basically anything that you could represent as being connected to other similar elements in a network.
+- **Edges** are connections between the nodes. They could represent streets, flights, bus routes, a connection between two users in a social network, or anything that could possibly represent a connection between the nodes in the context that you are working with.
+- **Graph Cycle** a cycle occurs in a graph when three or more vertices in the graph are connected so as form a closed loop
+- **Acyclic Graph** A graph that has no cycles
+- **Directed graph** A graph whose edges are directed, meaning that they can only be traversed in one direction, which is specified
+
+**_Example_**
+
+if we create a graph for a pizza delivery service, representing a city, two houses (nodes) may be connected by a one-way street (edge). You could get from house A to house B through this street, but you couldn’t go back, so you would have to take an alternative path.
+
+![directed graph example](https://cdn-media-1.freecodecamp.org/images/U7ZcYL5X54m06sKCuQ3wv8K2-Ka7ixE67nxg)
+
+- **Undirected Graph** A graph whose edges undirected, meaning they can be traversed in both directions
+
+**_Example_**
+
+For our pizza delivery service, this would mean that the delivery motorcycle can go from the source to the destination through the same street or path (To their relief! 😇).
+
+![Undirected graph example](https://cdn-media-1.freecodecamp.org/images/ijCoLsVRLPWxVTmUI13tnv-aTOtyiHHonk11)
+
+- **Connected graph** A graph is connected if for every pair of vertices iin the graph there's a path of one or more edges connecting the given vertices
+
+## Graph traversals
+
+**_Breadth First Search_**
+
+BFS visits the nodes one level at a time. To prevent visiting the same node more than once, we’ll maintain a visited object.
+
+Since we need to process the nodes in a First In First Out fashion, a queue is a good contender for the data structure to use. The time complexity is O(V+E).
+
+lets pseudocode it first
+
+```
+function BFS
+   Initialize an empty queue, empty 'result' array & a 'visited' map
+   Add the starting vertex to the queue & visited map
+   While Queue is not empty:
+     - Dequeue and store current vertex
+     - Push current vertex to result array
+     - Iterate through current vertex's adjacency list:
+       - For each adjacent vertex, if vertex is unvisited:
+         - Add vertex to visited map
+         - Enqueue vertex
+   Return result array
+```
+
+```js
+Graph.prototype.bfs = function (start) {
+  const queue = [start];
+  const result = [];
+  const visited = {};
+  visited[start] = true;
+  let currentVertex;
+  while (queue.length) {
+    currentVertex = queue.shift();
+    result.push(currentVertex);
+    this.adjacencyList[currentVertex].forEach((neighbor) => {
+      if (!visited[neighbor]) {
+        visited[neighbor] = true;
+        queue.push(neighbor);
+      }
+    });
+  }
+  return result;
+};
+```
+
+**_Depth First Search_**
+
+DFS visits the nodes depth wise. Since we need to process the nodes in a Last In First Out manner, we’ll use a stack.
+
+Starting from a vertex, we’ll push the neighboring vertices to our stack. Whenever a vertex is popped, it is marked visited in our visited object. Its neighboring vertices are pushed to the stack. Since we are always popping a new adjacent vertex, our algorithm will always explore a new level.
+
+We can also use the intrinsic stack calls to implement DFS recursively. The logic is the same.
+
+The time complexity is the same as BFS, O(V+E).
+
+lets pseudocode it first
+
+```
+function DFS
+   Initialize an empty stack, empty 'result' array & a 'visited' map
+   Add the starting vertex to the stack & visited map
+   While Stack is not empty:
+     - Pop and store current vertex
+     - Push current vertex to result array
+     - Iterate through current vertex's adjacency list:
+       - For each adjacent vertex, if vertex is unvisited:
+         - Add vertex to visited map
+         - Push vertex to stack
+   Return result array
+```
+
+```js
+Graph.prototype.bfs = function (start) {
+  const queue = [start];
+  const result = [];
+  const visited = {};
+  visited[start] = true;
+  let currentVertex;
+  while (queue.length) {
+    currentVertex = queue.shift();
+    result.push(currentVertex);
+    this.adjacencyList[currentVertex].forEach((neighbor) => {
+      if (!visited[neighbor]) {
+        visited[neighbor] = true;
+        queue.push(neighbor);
+      }
+    });
+  }
+  return result;
+};
+```
+
+## Hash tables
+
+![hash tables](https://www.freecodecamp.org/news/content/images/size/w2000/2021/05/JavaScript-Hash-Table.png)
+
+Fun. Fast. Flexible. This beloved data structure is a fan favorite among interviewers and interviewees alike, and for good reason: it lends itself extremely well to any problem requiring some sort of lookup operation, of which (spoiler alert) there are many.
+
+A hash table, also known as a hash map, is a data structure that maps keys to values. It is one part of a technique called hashing, the other of which is a hash function. A hash function is an algorithm that produces an index of where a value can be found or stored in the hash table.
+
+Some important notes about hash tables:
+
+1. Values are not stored in a sorted order.
+
+2. You must account for potential collisions. This is usually done with a technique called chaining. Chaining means to create a linked list of values, the keys of which map to a certain index.
+
+You'll commonly use a Hash Table because of its fast search, insertion, and delete operations:
+
+**HASH TABLE TIME COMPLEXITY IN BIG O NOTATION**
+
+| Algorithm | Average | Worst case |
+| :-------- | :-----: | ---------: |
+| Space     |  O(n)   |       O(n) |
+| Search    |  O(1)   |       O(n) |
+| Insert    |  O(1)   |       O(n) |
+| Delete    |  O(1)   |       O(n) |
+
+# Trees
+
+![Binary](https://cdn-media-1.freecodecamp.org/images/2rTqYlcrnWtICedt131tDft0CmkzZaViExJX)
+
+A BST is considered a data structure made up of nodes, like Linked Lists. These nodes are either null or have references (links) to other nodes. These ‘other’ nodes are child nodes, called a left node and right node. Nodes have values. These values determine where they are placed within the BST.
+
+Similarly to a linked list, each node is referenced by only one other node, its parent (except for the root node). So we can say that each node in a BST is in itself a BST. Because further down the tree, we reach another node and that node has a left and a right. Then depending on which way we go, that node has a left and a right and so on.
+
+1. The left node is always smaller than its parent.
+
+2. The right node is always greater than its parent.
+
+3. A BST is considered balanced if every level of the tree is fully filled with the exception of the last level. On the last level, the tree is filled left to right.
+
+4. A Perfect BST is one in which it is both full and complete (all child nodes are on the same level and each node has a left and a right child node).
+
+## Why use BST
+
+What are some real-world examples of BST’s? Trees are often used in search, game logic, autocomplete tasks, and graphics.
+
+Speed. As mentioned earlier, the BST is an ordered data structure. Upon insertion, the nodes are placed in an orderly fashion. This inherent order makes searching fast. Similar to binary search (with an array that is sorted), we cut the amount of data to sort through by half on each pass. For example, suppose we are looking for a small node value. On each pass, we keep moving along the leftmost node. This eliminates half the greater values automatically!
+
+Also, unlike an array, the data is stored by reference. As we add to the data structure, we create a new chunk in memory and link to it. This is faster than creating a new array with more space and then inserting the data from the smaller array to the new, larger one.
+
+In short, inserting, deleting and searching are the all-stars for a BST
+
+Now that we understand the principles, the benefits, and the basic components of a BST, let’s implement one in javascript.
+
+There are many types of trees and tree-like structures, including binary trees, heaps, and tries
+
+**_Binary Tree_**
+A tree whose nodes have up to two child nodes
+
+The structure of a binary tree is such that many of its operations have a logarithmic time complexity, making the binary tree an incredibly attractive and commonly used data structure.
+
+**_K-ary Tree_**
+
+A tree whose nodes have up to K child-nodes. A binary tree is a k-ary tree where k === 2
+
+**_Perfect Binary tree_**
+
+A Binary tree whose interior nodes all have two child-nodes and whose leaf nodes all have the same depth
+
+```
+          1
+      /         \
+     2           3
+   /   \       /   \
+  4     5     6     7
+ / \   / \   / \   / \
+8   9 10 11 12 13 14 15
+```
+
+## Implementation
+
+Binary Search tree is a binary tree in which nodes that have lesser value are stored on the left while the nodes with a higher value are stored at the right.
+
+1. The Node Class
+   This class will represent a single node present at various points in the BST. A BST is nothing but a collection of nodes storing data and child references placed according to the rules described above.
+
+```js
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.left = null;
+    this.right = null;
+  }
+}
+```
+
+To create a new Node instance, we can call this class like this with some data −
+
+```js
+const newNode = new Node(23);
+```
+
+2. The Binary Search Tree Class
+
+```js
+class BinarySearchTree {
+  constructor() {
+    this.root = null;
+  }
+}
+```
+
+This will create the Binary Search Tree class which we can call with the new keyword to make a tree instance.
+
+Now as we are done with the basic stuff let’s move on to inserting a new node at the right place (according to the rules of BST described in definition).
+
+3. Inserting a Node in BST
+
+```js
+class BinarySearchTree {
+  constructor() {
+    this.root = null;
+  }
+  insert(data) {
+    var newNode = new Node(data);
+    if (this.root === null) {
+      this.root = newNode;
+    } else {
+      this.insertNode(this.root, newNode);
+    }
+  }
+  insertNode(node, newNode) {
+    if (newNode.data < node.data) {
+      if (node.left === null) {
+        node.left = newNode;
+      } else {
+        this.insertNode(node.left, newNode);
+      }
+    } else {
+      if (node.right === null) {
+        node.right = newNode;
+      } else {
+        this.insertNode(node.right, newNode);
+      }
+    }
+  }
+}
+```
+
+**_Final code_**
+
+```js
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.left = null;
+    this.right = null;
+  }
+}
+class BinarySearchTree {
+  constructor() {
+    this.root = null;
+  }
+  insert(data) {
+    const newNode = new Node(data);
+    if (this.root === null) {
+      this.root = newNode;
+    } else {
+      this.insertNode(this.root, newNode);
+    }
+  }
+  insertNode(node, newNode) {
+    if (newNode.data < node.data) {
+      if (node.left === null) {
+        node.left = newNode;
+      } else {
+        this.insertNode(node.left, newNode);
+      }
+    } else {
+      if (node.right === null) {
+        node.right = newNode;
+      } else {
+        this.insertNode(node.right, newNode);
+      }
+    }
+  }
+}
+const BST = new BinarySearchTree();
+BST.insert(1);
+BST.insert(3);
+BST.insert(2);
+```
+
+Now, lets break down each part of this class in more detail
+
+**_The constructor_**
+
+The BinarySearchTree class itself mostly just acts as a housing for the head node. We need to keep a reference to our head because every other node in our tree originates from that node. So if we want to insert a new node into the tree, we have to start from the head because it dictates where all other nodes are placed. I’ve also opted to provide this value with a default assignment of an empty Node instance. That way I can rely on there being a head node present and not have to code defensively around that.
+
+**_The insert() method_**
+
+The insert method is a critical method for any binary search tree because of the strict ordering each node has to adhere to. Remember, the left node must have a value less than its parent, and the right node’s value must be greater than that of its parent.
+
+As for the algorithm, it’s quite simple. We traverse through the tree using a while loop that runs until we are out of nodes to check. On each iteration, we compare the value to be inserted to the value of the current node we’re on. That tells us which side to continue traversing, the left or the right. Then, if there’s no child node on that side (i.e. left or right are null), we’ll insert a new node with our new value.
+
+Otherwise, if there is a child node there, we’ll set that to be our new current node and the loop continues.
 
 ## What is Big O
 
