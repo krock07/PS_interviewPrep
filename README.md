@@ -190,7 +190,7 @@ The entry point to a linked list is called the head. The head is a reference to 
 
 In JavaScript, a linked list looks like this:
 
-```
+```js
 const list = {
     head: {
         value: 6
@@ -266,11 +266,11 @@ class ListNode {
 
 The code below shows the implementation of a linked list class with a constructor. Notice that if the head node is not passed, the head is initialised to null.
 
-```json
+```js
 class LinkedList {
-    constructor(head = null) {
-        this.head = head
-    }
+  constructor(head = null) {
+    this.head = head;
+  }
 }
 ```
 
@@ -309,7 +309,7 @@ Next up, we will implement four helper methods for the linked list. They are:
 
 This method returns the number of nodes present in the linked list.
 
-```json
+```js
 size() {
     let count = 0;
     let node = this.head;
@@ -325,7 +325,7 @@ size() {
 
 This method empties out the list.
 
-```json
+```js
 clear() {
     this.head = null;
 }
