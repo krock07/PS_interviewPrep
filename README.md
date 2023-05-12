@@ -253,12 +253,12 @@ complexities:
 
 As stated earlier, a list node contains two items: the data and the pointer to the next node. We can implement a list node in JavaScript as follows:
 
-```
+```js
 class ListNode {
-    constructor(data) {
-        this.data = data
-        this.next = null
-    }
+  constructor(data) {
+    this.data = data;
+    this.next = null;
+  }
 }
 ```
 
