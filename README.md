@@ -1110,3 +1110,225 @@ Lastly, what if we had an app that calculates the distances between zip / postal
 A zip code in the United States is a five digit number that represents a fairly small area of land. 98109 is in the middle of Seattle, Washington while 10001 is in the middle of New York City, NY.
 
 If a user asks what's the distance between 98109 and 10001, we'd spit out something like 2,800 miles or 4,500 km. Now, let's say for every zip code we add to our system, we calculate the distance between every other zip code in our system and store it. If there were only 10 zip codes, sure, that'd be easy, but there are nearly 42,000 zip codes in the United States with more being added. The spatial complexity on this would be O(n²) because for every new zip code we add, we'd have to add 42,000 new items as well.
+
+# Algorithms
+
+Here is the list of data structures and algorithms you should prepare for coding interviews and their corresponding study guides:
+
+| Topic                 | Priority |
+| :-------------------- | :------: |
+| Array                 |   High   |
+| String                |   High   |
+| Hash Table            |   Mid    |
+| Recursion             |   Mid    |
+| Sorting and searching |   High   |
+| Matrix                |   High   |
+| Tree                  |   High   |
+| Queue                 |   Mid    |
+| stack                 |   Mid    |
+| graph                 |   high   |
+| Recursion             |   Mid    |
+
+## Arrays
+
+**_Common terms_**
+
+Common terms you see when doing problems involving arrays:
+
+- Subarray - A range of contiguous values within an array.
+  - Example: given an array [2, 3, 6, 1, 5, 4], [3, 6, 1] is a subarray while [3, 1, 5] is not a subarray.
+- Subsequence - A sequence that can be derived from the given sequence by deleting some or no elements without changing the order of the remaining elements.
+
+  - Example: given an array [2, 3, 6, 1, 5, 4], [3, 1, 5] is a subsequence but [3, 5, 1] is not a subsequence.
+
+  **_Time Complexity_**
+
+  | Operation             |   Big-O   |                                                                                                 Note |
+  | :-------------------- | :-------: | ---------------------------------------------------------------------------------------------------: |
+  | Access                |   O(1)    |                                                                                                      |
+  | Search                |   O(n)    |                                                                                                      |
+  | Search (sorted array) | O(log(n)) |                                                                                                      |
+  | Insert                |   O(n)    | Insertion would require shifting all the subsequent elements to the right by one and that takes O(n) |
+  | Insert (at the end)   |   O(1)    |                                 Special case of insertion where no other element needs to be shifted |
+  | Delete                |   O(n)    |    Removal would require shifting all the subsequent elements to the left by one and that takes O(n) |
+  | Remove (at the end)   |   O(1)    |                                   Special case of removal where no other element needs to be shifted |
+
+## Things to look out for during interviews
+
+- Clarify if there are duplicate values in the array. Would the presence of duplicate values affect the answer? Does it make the question simpler or harder?
+- When using an index to iterate through array elements, be careful not to go out of bounds.
+- Be mindful about slicing or concatenating arrays in your code. Typically, slicing and concatenating arrays would take O(n) time. Use start and end indices to demarcate a subarray/range where possible.
+
+## Techniques
+
+Note that because both arrays and strings are sequences (a string is an array of characters), most of the techniques here will apply to string problems.
+
+**_Sliding window_**
+
+Master the sliding window technique that applies to many subarray/substring problems. In a sliding window, the two pointers usually move in the same direction will never overtake each other. This ensures that each value is only visited at most twice and the time complexity is still O(n). Examples: Longest Substring Without Repeating Characters, Minimum Size Subarray Sum, Minimum Window Substring
+
+**_Two pointers_**
+
+Two pointers is a more general version of sliding window where the pointers can cross each other and can be on different arrays. Examples: Sort Colors, Palindromic Substrings
+
+When you are given two arrays to process, it is common to have one index per array (pointer) to traverse/compare the both of them, incrementing one of the pointers when relevant. For example, we use this approach to merge two sorted arrays. Examples: Merge Sorted Array
+
+**_Sorting the array_**
+
+Is the array sorted or partially sorted? If it is, some form of binary search should be possible. This also usually means that the interviewer is looking for a solution that is faster than O(n).
+
+Can you sort the array? Sometimes sorting the array first may significantly simplify the problem. Obviously this would not work if the order of array elements need to be preserved. Examples: Merge Intervals, Non-overlapping Intervals
+
+## Essential questions
+
+These are essential questions to practice if you're studying for this topic.
+
+- [Two Sum](https://leetcode.com/problems/contains-duplicate/)
+- [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
+- [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/)
+- [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
+
+## Strings
+
+A string is a sequence of characters
+
+**\*Time Complexity**
+
+A strings is an array of characters, so the time complexities of basic string operations will closely resemble that of array operations.
+
+| Operation | Big-O |
+| :-------- | :---: |
+| Access    | O(1)  |
+| Search    | O(n)  |
+| Insert    | O(n)  |
+| Remove    | O(n)  |
+
+## Things to look out for during interviews
+
+Ask about input character set and case sensitivity. Usually the characters are limited to lowercase Latin characters, for example a to z.
+
+## Techniques
+
+Anagram
+An anagram is word switch or word play. It is the result of rearranging the letters of a word or phrase to produce a new word or phrase, while using all the original letters only once. In interviews, usually we are only bothered with words without spaces in them.
+
+To determine if two strings are anagrams, there are a few approaches:
+
+Sorting both strings should produce the same resulting string. This takes O(n.log(n)) time and O(log(n)) space.
+If we map each character to a prime number and we multiply each mapped number together, anagrams should have the same multiple (prime factor decomposition). This takes O(n) time and O(1) space. Examples: Group Anagram
+Frequency counting of characters will help to determine if two strings are anagrams. This also takes O(n) time and O(1) space.
+Palindrome
+A palindrome is a word, phrase, number, or other sequence of characters which reads the same backward as forward, such as madam or racecar.
+
+Here are ways to determine if a string is a palindrome:
+
+Reverse the string and it should be equal to itself.
+Have two pointers at the start and end of the string. Move the pointers inward till they meet. At every point in time, the characters at both pointers should match.
+The order of characters within the string matters, so hash tables are usually not helpful.
+
+When a question is about counting the number of palindromes, a common trick is to have two pointers that move outward, away from the middle. Note that palindromes can be even or odd length. For each middle pivot position, you need to check it twice - once that includes the character and once without the character. This technique is used in **_Longest Palindromic Substring_**.
+
+- For substrings, you can terminate early once there is no match
+
+## Essential questions
+
+These are essential questions to practice if you're studying for this topic.
+
+- [Valid Anagram](https://leetcode.com/problems/valid-anagram)
+- [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/)
+- [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+
+## Hash Tables
+
+Hashing is the most common example of a space-time tradeoff. Instead of linearly searching an array every time to determine if an element is present, which takes O(n) time, we can traverse the array once and hash all the elements into a hash table. Determining if the element is present is a simple matter of hashing the element and seeing if it exists in the hash table, which is O(1) on average.
+
+In the case of hash collisions, there are a number of collision resolution techniques that can be used. You will unlikely be asked about details of collision resolution techniques in interviews:
+
+- **_Separate chaining_** - A linked list is used for each value, so that it stores all the collided items.
+- **_Open addressing_** - All entry records are stored in the bucket array itself. When a new entry has to be inserted, the buckets are examined, starting with the hashed-to slot and proceeding in some probe sequence, until an unoccupied slot is found.
+
+  **_Time Complexity_**
+
+  | Operation | Big-O  |                                                 Note |
+  | :-------- | :----: | ---------------------------------------------------: |
+  | Access    |  N/A   | Accessing not possible as the hash code is not known |
+  | Search    | O(1)\* |                                                      |
+  | Insert    | O(1)\* |                                                      |
+  | Remove    | O(1)\* |                                                      |
+
+  - This is the average case, but in interviews we only care about the average case for hash tables.
+
+## Sample Questions
+
+- Describe an implementation of a least-used cache, and big-O notation of it.
+- A question involving an API's integration with hash map where the buckets of hash map are made up of linked lists.
+
+## Essential questions
+
+These are essential questions to practice if you're studying for this topic.
+
+- [Two Sum](https://leetcode.com/problems/two-sum)
+- [Ransom Note](https://leetcode.com/problems/ransom-note)
+
+## Sorting and searching cheatsheet
+
+### Introduction
+
+Sorting is the act of rearranging elements in a sequence in order, either in numerical or lexicographical order, and either ascending or descending.
+
+A number of basic algorithms run in O(n2) and should not be used in interviews. In algorithm interviews, you're unlikely to need to implement any of the sorting algorithms from scratch. Instead you would need to sort the input using your language's default sorting function so that you can use binary searches on them.
+
+On a sorted array of elements, by leveraging on its sorted property, searching can be done on them in faster than O(n) time by using a binary search. Binary search compares the target value with the middle element of the array, which informs the algorithm whether the target value lies in the left half or the right half, and this comparison proceeds on the remaining half until the target is found or the remaining half is empty.
+
+## Things to look out for during interviews
+
+Make sure you know the time and space complexity of the language's default sorting algorithm! The time complexity is almost definitely O(nlog(n))). Bonus points if you can name the sort. In Python, it's Timsort. In Java, an implementation of Timsort is used for sorting objects, and Dual-Pivot Quicksort is used for sorting primitives.
+
+## Techniques
+
+**_Sorted inputs_**
+
+When a given sequence is in a sorted order (be it ascending or descending), using binary search should be one of the first things that come to your mind.
+
+**_Sorting an input that has limited range_**
+
+Counting sort is a non-comparison-based sort you can use on numbers where you know the range of values beforehand. Examples: [H-Index](https://leetcode.com/problems/h-index/)
+
+## Essential questions
+
+These are essential questions to practice if you're studying for this topic.
+
+- [Binary Search](https://leetcode.com/problems/binary-search/)
+- [Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
+
+## Recommended practice questions
+
+These are recommended questions to practice after you have studied for the topic and have practiced the essential questions.
+
+- [Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/)
+- [Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/)
+- [Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
+- Find Minimum in Rotated Sorted Array
+- Median of Two Sorted Arrays
+
+# Learning Resources
+
+- Arrays
+
+  - Readings
+
+    - [Array in Data Structure: What is, Arrays Operations](https://www.guru99.com/array-data-structure.html)
+
+  - Videos
+    - [Arrays](https://www.coursera.org/lecture/data-structures/arrays-OsBSF), University of California San Diego
+
+- Hash Tables
+
+  - Readings
+
+    - [Taking Hash Tables Off The Shelf](https://medium.com/basecs/taking-hash-tables-off-the-shelf-139cbf4752f0)
+    - [Hashing Out Hah Functions](https://medium.com/basecs/hashing-out-hash-functions-ea5dd8beb4dd)
+
+- Videos
+  - [Core: Hash Tables](https://www.coursera.org/lecture/data-structures-optimizing-performance/core-hash-tables-m7UuP) University of California San Diego
+  - [A Brief Guide to Hash Tables ](https://www.youtube.com/watch?v=r1XZGP5ppqQ) [slides](https://samuelalbanie.com/files/digest-slides/2022-09-brief-guide-to-hash-tables.pdf) Samuel Albanie, University of Cambridge
