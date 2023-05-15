@@ -1283,6 +1283,7 @@ On a sorted array of elements, by leveraging on its sorted property, searching c
 ## Things to look out for during interviews
 
 Make sure you know the time and space complexity of the language's default sorting algorithm! The time complexity is almost definitely O(nlog(n))). Bonus points if you can name the sort. In Python, it's Timsort. In Java, an implementation of Timsort is used for sorting objects, and Dual-Pivot Quicksort is used for sorting primitives.
+b
 
 ## Techniques
 
