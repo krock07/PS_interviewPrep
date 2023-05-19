@@ -17,6 +17,10 @@ Anybody who wants to land a job at a tech company but is new to technical interv
 - [Algorithms](#algorithms)
 - [Resources](#learning-resources)
 
+![introVdeo](https://perscholas.zoom.us/rec/share/2BM-Hx8hUM0hZm8rkZIEx5tcUZoRrWny7aP_QI6PZmorEqU7snOq6X6e9pWaBN4D.VfAVjky_8MqrQJ2w?startTime=1684090562000), Passcode: TU?4ms@J
+
+![sample mock interview](https://perscholas.zoom.us/rec/share/2BM-Hx8hUM0hZm8rkZIEx5tcUZoRrWny7aP_QI6PZmorEqU7snOq6X6e9pWaBN4D.VfAVjky_8MqrQJ2w?startTime=1684086201000)
+
 # Tech Interview Basics
 
 So, what happens in a technical interview? Every company is different, but let’s take a look at the average situations you might face.
